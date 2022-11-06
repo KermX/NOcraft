@@ -19,7 +19,9 @@ public class InteractHandler implements Listener {
     public void onInteract(PlayerInteractEvent event) {
         Action action = event.getAction();
         Block block = event.getClickedBlock();
-
+    if (block == null) {
+        return;
+    }
     if(action.equals(Action.RIGHT_CLICK_BLOCK)){
         if (!event.getPlayer().hasPermission("nocraft.usecraftingtable")) {
             if (block.getType().equals(Material.CRAFTING_TABLE)) {
