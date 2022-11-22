@@ -78,6 +78,11 @@ public class InteractHandler implements Listener {
                 event.setCancelled(true);
             }
         }
+        if (!event.getPlayer().hasPermission("nocraft.usebeacon")) {
+            if(block.getType().equals(Material.BEACON)) {
+                event.setCancelled(true);
+            }
+        }
         if (!event.getPlayer().hasPermission("nocraft.useanvil")) {
             if (block.getType().equals(Material.ANVIL)) {
                 event.setCancelled(true);
