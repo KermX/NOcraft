@@ -83,6 +83,16 @@ public class InteractHandler implements Listener {
                 event.setCancelled(true);
             }
         }
+        if (!event.getPlayer().hasPermission("nocraft.usecampfire")) {
+            if(block.getType().equals(Material.CAMPFIRE)) {
+                event.setCancelled(true);
+            }
+        }
+        if (!event.getPlayer().hasPermission("nocraft.usecampfire")) {
+            if(block.getType().equals(Material.SOUL_CAMPFIRE)) {
+                event.setCancelled(true);
+            }
+        }
         if (!event.getPlayer().hasPermission("nocraft.useanvil")) {
             if (block.getType().equals(Material.ANVIL)) {
                 event.setCancelled(true);
