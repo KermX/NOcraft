@@ -1,0 +1,5 @@
+NOcraft:
+  disable-all-recipes: false
+  disabled-recipes:
+    - STICK
+    - CRAFTING_TABLE
