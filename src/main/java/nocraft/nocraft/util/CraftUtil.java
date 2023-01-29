@@ -6,7 +6,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import nocraft.nocraft.NOcraft;
 import org.bukkit.event.inventory.CraftItemEvent;
-import org.bukkit.event.inventory.FurnaceSmeltEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class CraftUtil implements Listener {
             try {
                 disabledRecipes.add(Material.valueOf(recipes));
             } catch (Exception e){
-                Bukkit.getLogger().info("disabled-recipes contains an invalid crafting result. https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html ");
+                Bukkit.getLogger().info("disabled-crafting-recipes contains an invalid crafting result. https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html ");
                 return;
             }
         for (Material indRecipes : disabledRecipes) {
@@ -39,12 +38,6 @@ public class CraftUtil implements Listener {
                 event.setCancelled(true);
             }
         }
-        }
-    }
-    public void onSmelt(FurnaceSmeltEvent sevent) {
-        boolean disableAllSmeltingRecipes = config.getConfig().getBoolean("NOcraft.disable-all-smelting-recipes");
-        if (disableAllSmeltingRecipes) {
-            sevent.setCancelled(true);
         }
     }
 }
