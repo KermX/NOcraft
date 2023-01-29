@@ -9,109 +9,61 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class InteractHandler implements Listener {
     public InteractHandler(NOcraft plugin) {
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
+    private static final Map<Material, String> MATERIALS = new HashMap<>();
+
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
-        Action action = event.getAction();
         Block block = event.getClickedBlock();
         if (block == null) {
             return;
         }
-        if(action.equals(Action.RIGHT_CLICK_BLOCK)){
-            if (event.getPlayer().hasPermission("nocraft.bypass")){
-                return;
-            }
-            if (!event.getPlayer().hasPermission("nocraft.usecraftingtable")) {
-                if (block.getType().equals(Material.CRAFTING_TABLE)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.usebrewingstand")) {
-                if(block.getType().equals(Material.BREWING_STAND)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.usefurnace")) {
-                if(block.getType().equals(Material.FURNACE)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.useenchantingtable")) {
-                if(block.getType().equals(Material.ENCHANTING_TABLE)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.useloom")) {
-                if(block.getType().equals(Material.LOOM)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.usegrindstone")) {
-                if(block.getType().equals(Material.GRINDSTONE)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.usesmithingtable")) {
-                if(block.getType().equals(Material.SMITHING_TABLE)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.usestonecutter")) {
-                if(block.getType().equals(Material.STONECUTTER)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.useblastfurnace")) {
-                if(block.getType().equals(Material.BLAST_FURNACE)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.usesmoker")) {
-                if(block.getType().equals(Material.SMOKER)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.usecartographytable")) {
-                if(block.getType().equals(Material.CARTOGRAPHY_TABLE)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.usebeacon")) {
-                if(block.getType().equals(Material.BEACON)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.usecampfire")) {
-                if(block.getType().equals(Material.CAMPFIRE)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.usecampfire")) {
-                if(block.getType().equals(Material.SOUL_CAMPFIRE)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.useanvil")) {
-                if (block.getType().equals(Material.ANVIL)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.useanvil")) {
-                if(block.getType().equals(Material.CHIPPED_ANVIL)) {
-                    event.setCancelled(true);
-                }
-            }
-            if (!event.getPlayer().hasPermission("nocraft.useanvil")) {
-                if(block.getType().equals(Material.DAMAGED_ANVIL)) {
-                    event.setCancelled(true);
-                }
-            }
+
+        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+            return;
         }
+
+        String permission = MATERIALS.get(block.getType());
+
+        if (permission == null) {
+            return;
+        }
+
+        if (event.getPlayer().hasPermission("nocraft.bypass")) {
+            return;
+        }
+
+        if (!event.getPlayer().hasPermission("nocraft.use" + permission)) {
+            event.setCancelled(true);
+        }
+    }
+
+    static {
+        MATERIALS.put(Material.CRAFTING_TABLE, "craftingtable");
+        MATERIALS.put(Material.BREWING_STAND, "brewingstand");
+        MATERIALS.put(Material.FURNACE, "furnace");
+        MATERIALS.put(Material.ENCHANTING_TABLE, "enchantingtable");
+        MATERIALS.put(Material.LOOM, "loom");
+        MATERIALS.put(Material.GRINDSTONE, "grindstone");
+        MATERIALS.put(Material.SMITHING_TABLE, "smithingtable");
+        MATERIALS.put(Material.SMOKER, "smoker");
+        MATERIALS.put(Material.BLAST_FURNACE, "blastfurnace");
+        MATERIALS.put(Material.STONECUTTER, "stonecutter");
+        MATERIALS.put(Material.CARTOGRAPHY_TABLE, "cartographytable");
+        MATERIALS.put(Material.BEACON, "beacon");
+        MATERIALS.put(Material.CAMPFIRE, "campfire");
+        MATERIALS.put(Material.SOUL_CAMPFIRE, "campfire");
+        MATERIALS.put(Material.ANVIL, "anvil");
+        MATERIALS.put(Material.CHIPPED_ANVIL, "anvil");
+        MATERIALS.put(Material.DAMAGED_ANVIL, "anvil");
     }
 }
 
