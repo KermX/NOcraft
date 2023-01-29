@@ -20,7 +20,6 @@ public final class NOcraft extends JavaPlugin {
         CraftUtil CraftUtil = new CraftUtil(this);
         SmeltUtil SmeltUtil = new SmeltUtil(this);
 
-        // getCommand("addhanditem").setExecutor(new addhanditem());
 
 
         new InteractHandler(this);
