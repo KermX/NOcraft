@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import nocraft.nocraft.NOcraft;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.FurnaceSmeltEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +22,12 @@ public class CraftUtil implements Listener {
     public void onCraft(CraftItemEvent event) {
         if (event.getWhoClicked().hasPermission("NOcraft.bypass"))
             return;
-        boolean disableAllRecipes = config.getConfig().getBoolean("NOcraft.disable-all-recipes");
+        boolean disableAllRecipes = config.getConfig().getBoolean("NOcraft.disable-all-crafting-recipes");
         if (disableAllRecipes) {
             event.setCancelled(true);
         } else {
         List<Material> disabledRecipes = new ArrayList<>();
-        for (String recipes : config.getConfig().getStringList("NOcraft.disabled-recipes"))
+        for (String recipes : config.getConfig().getStringList("NOcraft.disabled-crafting-recipes"))
             try {
                 disabledRecipes.add(Material.valueOf(recipes));
             } catch (Exception e){
@@ -38,6 +39,12 @@ public class CraftUtil implements Listener {
                 event.setCancelled(true);
             }
         }
+        }
+    }
+    public void onSmelt(FurnaceSmeltEvent sevent) {
+        boolean disableAllSmeltingRecipes = config.getConfig().getBoolean("NOcraft.disable-all-smelting-recipes");
+        if (disableAllSmeltingRecipes) {
+            sevent.setCancelled(true);
         }
     }
 }

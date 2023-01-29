@@ -22,10 +22,10 @@ public class InteractHandler implements Listener {
         if (block == null) {
             return;
         }
-        if (!event.getPlayer().hasPermission("nocraft.bypass")){
-            return;
-        }
         if(action.equals(Action.RIGHT_CLICK_BLOCK)){
+            if (event.getPlayer().hasPermission("nocraft.bypass")){
+                return;
+            }
             if (!event.getPlayer().hasPermission("nocraft.usecraftingtable")) {
                 if (block.getType().equals(Material.CRAFTING_TABLE)) {
                     event.setCancelled(true);

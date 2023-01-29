@@ -1,6 +1,11 @@
 name: NOcraft
 version: '${project.version}'
 main: nocraft.nocraft.NOcraft
-api-version: 1.19
+api-version: 1.13
 authors: [ KermX ]
-description: Disable a bunch of vanilla menus 
+description: Disable a bunch of vanilla menus
+commands:
+  addhanditem:
+    description: add held item to the blocked recipes list
+    usage: /NOcraft addhanditem
+    permission: nocraft.admin

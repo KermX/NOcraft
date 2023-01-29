@@ -1,5 +1,6 @@
 NOcraft:
-  disable-all-recipes: false
-  disabled-recipes:
+  disable-all-crafting-recipes: false
+  disable-all-smelting-recipes: false
+  disabled-crafting-recipes:
     - STICK
     - CRAFTING_TABLE
